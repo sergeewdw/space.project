@@ -2,9 +2,9 @@ import UIKit
 
 class PageViewController: UIPageViewController {
     
-    private(set) var currentPage = 0
+    private var currentPage = 0
     
-    var vcArray: [UIViewController] = {
+    private var vcArray: [UIViewController] = {
         
         let red = UIViewController()
         red.view.backgroundColor = .red
