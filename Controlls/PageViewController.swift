@@ -3,29 +3,42 @@ import UIKit
 
 class PageViewController: UIPageViewController {
     
+    init() {
+        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     
     lazy var vcArray: [UIViewController] = {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
-        let red = storyboard.instantiateViewController(withIdentifier: "RedView")
-        let green = storyboard.instantiateViewController(withIdentifier: "GreenView")
-        let yellow = storyboard.instantiateViewController(withIdentifier: "YellowView")
+        let red = UIViewController()
+        red.view.backgroundColor = .red
+        let green = UIViewController()
+        green.view.backgroundColor = .green
+        let yellow = UIViewController()
+        yellow.view.backgroundColor = .yellow
         
         
         return [red, green, yellow]
     }()
     
    private(set) var currentPage = 0
-
+    private let pagerView = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.dataSource = self
         if let first = vcArray.first {
             self.setViewControllers([first], direction: .forward, animated: true)
         }
+        
     }
 }
 
@@ -34,7 +47,6 @@ class PageViewController: UIPageViewController {
 extension PageViewController: UIPageViewControllerDataSource {
     
     
-    //Экран после текущего
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let index = vcArray.firstIndex(of: viewController) else { return nil }
@@ -44,7 +56,6 @@ extension PageViewController: UIPageViewControllerDataSource {
         return vcArray[newIndex]
     }
     
-    //Экран перед текущим
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         guard let index = vcArray.firstIndex(of: viewController) else { return nil }
@@ -54,14 +65,14 @@ extension PageViewController: UIPageViewControllerDataSource {
         return vcArray[newIndex]
     }
     
-    //Количество страниц
+
     
     func presentationCount(for pageViewController: UIPageViewController) -> Int {
         vcArray.count
     }
     
     
-    //Сообщает текущий индекс
+   
     
     func presentationIndex(for pageViewController: UIPageViewController) -> Int {
         currentPage
