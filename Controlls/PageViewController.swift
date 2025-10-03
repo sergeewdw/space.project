@@ -1,21 +1,10 @@
-
 import UIKit
 
 class PageViewController: UIPageViewController {
     
-    init() {
-        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal)
-    }
+    private(set) var currentPage = 0
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    
-    
-    lazy var vcArray: [UIViewController] = {
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    var vcArray: [UIViewController] = {
         
         let red = UIViewController()
         red.view.backgroundColor = .red
@@ -23,30 +12,29 @@ class PageViewController: UIPageViewController {
         green.view.backgroundColor = .green
         let yellow = UIViewController()
         yellow.view.backgroundColor = .yellow
-        
-        
         return [red, green, yellow]
     }()
     
-   private(set) var currentPage = 0
-    private let pagerView = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.dataSource = self
         if let first = vcArray.first {
             self.setViewControllers([first], direction: .forward, animated: true)
         }
-        
+    }
+    
+    init() {
+        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal)
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 
 //MARK: DataSourse
 
 extension PageViewController: UIPageViewControllerDataSource {
-    
-    
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let index = vcArray.firstIndex(of: viewController) else { return nil }
@@ -56,7 +44,6 @@ extension PageViewController: UIPageViewControllerDataSource {
         return vcArray[newIndex]
     }
     
-    
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         guard let index = vcArray.firstIndex(of: viewController) else { return nil }
         let newIndex = index + 1
@@ -65,14 +52,9 @@ extension PageViewController: UIPageViewControllerDataSource {
         return vcArray[newIndex]
     }
     
-
-    
     func presentationCount(for pageViewController: UIPageViewController) -> Int {
         vcArray.count
     }
-    
-    
-   
     
     func presentationIndex(for pageViewController: UIPageViewController) -> Int {
         currentPage
