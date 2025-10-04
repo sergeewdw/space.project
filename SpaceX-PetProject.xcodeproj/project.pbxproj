@@ -127,13 +127,14 @@
 			buildConfigurationList = 216E57B62E8EADA10005F23C /* Build configuration list for PBXNativeTarget "SpaceX-PetProject" */;
 			buildPhases = (
 				216E57892E8EAD9F0005F23C /* Sources */,
+				216E580A2E9036610005F23C /* ShellScript */,
 				216E578A2E8EAD9F0005F23C /* Frameworks */,
 				216E578B2E8EAD9F0005F23C /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				216E57ED2E901C920005F23C /* PBXTargetDependency */,
+				216E580C2E911C5B0005F23C /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				216E578F2E8EAD9F0005F23C /* SupportFiles */,
@@ -263,6 +264,30 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		216E580A2E9036610005F23C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				" $(SRCROOT)/.swiftlint.yml\n$(SRCROOT)/SpaceX-PetProject\n",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "
+";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		216E57892E8EAD9F0005F23C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -299,9 +324,9 @@
 			target = 216E578C2E8EAD9F0005F23C /* SpaceX-PetProject */;
 			targetProxy = 216E57AE2E8EADA10005F23C /* PBXContainerItemProxy */;
 		};
-		216E57ED2E901C920005F23C /* PBXTargetDependency */ = {
+		216E580C2E911C5B0005F23C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			productRef = 216E57EC2E901C920005F23C /* SwiftLintBuildToolPlugin */;
+			productRef = 216E580B2E911C5B0005F23C /* SwiftLintBuildToolPlugin */;
 		};
 /* End PBXTargetDependency section */
 
@@ -611,7 +636,7 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		216E57EC2E901C920005F23C /* SwiftLintBuildToolPlugin */ = {
+		216E580B2E911C5B0005F23C /* SwiftLintBuildToolPlugin */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 216E57EB2E901C620005F23C /* XCRemoteSwiftPackageReference "SwiftLint" */;
 			productName = "plugin:SwiftLintBuildToolPlugin";

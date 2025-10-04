@@ -9,18 +9,47 @@ opt_in_rules:
 analyzer_rules:
   - explicit_self
 
-line_length: 110
+excluded:
+  - Carthage
+  - Pods
+  - DerivedData
 
-type_body_length: [300, 400]
+allow_zero_lintable_files: false
+check_for_updates: true
+
+force_cast: warning
+force_try:
+  severity: warning
+
+line_length: 150
+
+type_body_length:
+  - 300
+  - 400
+
+included:
+  - SpaceX-PetProject
+  - SpaceX-PetProjectTests
+  - SpaceX-PetProjectUITests
+
 file_length:
   warning: 500
   error: 1200
 
 type_name:
   min_length: 4
-  max_length: { warning: 40, error: 50 }
+  max_length:
+    warning: 40
+    error: 50
+  excluded: iPhone
   allowed_symbols: ["_"]
 
 identifier_name:
   min_length:
     error: 4
+  excluded:
+    - id
+    - URL
+    - GlobalAPIKey
+
+reporter: "xcode"
