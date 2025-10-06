@@ -2,6 +2,7 @@ import UIKit
 
 class PageViewController: UIPageViewController {
     private var currentPage = 0
+    let networkService = NetworkService()
     private var vcArray: [UIViewController] = {
         let redVC = UIViewController()
         redVC.view.backgroundColor = .red
@@ -18,6 +19,7 @@ class PageViewController: UIPageViewController {
         if let first = vcArray.first {
             self.setViewControllers([first], direction: .forward, animated: true)
         }
+        networkService.loadRockets()
     }
     init() {
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal)

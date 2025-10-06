@@ -2,6 +2,8 @@ disabled_rules:
   - colon
   - comma
   - control_statement
+  - unused_closure_parameter
+
 
 opt_in_rules:
   - empty_count
@@ -50,6 +52,10 @@ identifier_name:
   excluded:
     - id
     - URL
-    - GlobalAPIKey
+    - url
+    - kg
+    - lb
+    - kN
+    - lbf
 
 reporter: "xcode"
