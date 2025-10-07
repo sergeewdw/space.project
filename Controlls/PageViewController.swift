@@ -1,8 +1,8 @@
 import UIKit
 
-class PageViewController: UIPageViewController {
+final class PageViewController: UIPageViewController {
     private var currentPage = 0
-    let networkService = NetworkService()
+    private let networkService = NetworkService()
     private var vcArray: [UIViewController] = {
         let redVC = UIViewController()
         redVC.view.backgroundColor = .red
@@ -12,18 +12,16 @@ class PageViewController: UIPageViewController {
         yellowVC.view.backgroundColor = .yellow
         return [redVC, greenVC, yellowVC]
     }()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         self.dataSource = self
         if let first = vcArray.first {
             self.setViewControllers([first], direction: .forward, animated: true)
         }
-
         networkService.getRockets { result in
             switch result {
             case .success(let rocket):
-                print("\(rocket) rockets.")
+                print("\(rocket.count) rockets.")
             case .failure(let error):
                 print(error.localizedDescription)
             }

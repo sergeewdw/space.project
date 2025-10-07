@@ -30,14 +30,3 @@ extension RocketInfo {
         let kg, lb: Double
     }
 }
-
-struct Launch: Decodable {
-    let dateUtc: Date?
-    let rocket: String
-    let success: Bool
-    let name: String
-}
-
-struct Launches: Decodable {
-    let docs: [Launch]
-}

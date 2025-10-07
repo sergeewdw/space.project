@@ -1,6 +1,8 @@
 import UIKit
 
 final class NetworkService {
+    typealias RocketResult = (Result<[RocketInfo], Error>) -> Void
+    typealias LaunchResult = (Result<Launch.Launches, Error>) -> Void
     private let launchesDecoder: JSONDecoder = {
         let decoder = JSONDecoder()
         let formatter = DateFormatter()
@@ -14,27 +16,26 @@ final class NetworkService {
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         return decoder
     }()
-    let rocketURL = "https://api.spacexdata.com/v4/"
-    func getRockets(errorHandler: @escaping (Result<[RocketInfo], Error>) -> Void) {
-        guard let url = URL(string: rocketURL + "rockets") else { return }
+    func getRockets(completionHandler: @escaping RocketResult) {
+        guard let url = URL(string: Constants.rocketURL + "rockets") else { return }
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
+        URLSession.shared.dataTask(with: request) { (data, _, error) in
             if let error = error {
-                print("Error fetching data: \(error)")
+                completionHandler(.failure(error))
             }
             guard let data = data else { return }
             do {
                 let result = try self.rocketDecoder.decode([RocketInfo].self, from: data)
-                errorHandler(.success(result))
+                completionHandler(.success(result))
             } catch {
-                errorHandler(.failure(error))
+                completionHandler(.failure(error))
             }
         }.resume()
     }
-    func getLaunches(by rocketId: String, errorHandler: @escaping (Result<Launches, Error>) -> Void) {
-        guard let url = URL(string: rocketURL + "launches/query") else { return }
+    func getLaunches(by rocketId: String, completionHandler: @escaping LaunchResult) {
+        guard let url = URL(string: Constants.rocketURL + "launches/query") else { return }
         var request = URLRequest(url: url)
         let body = LaunchRequest(query: .init(rocket: rocketId, upcoming: false), options: .init(limit: 200, sort: "-date_local"))
         let encodedBody = try? JSONEncoder().encode(body)
@@ -43,15 +44,20 @@ final class NetworkService {
         request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
         URLSession.shared.dataTask(with: request) { (data, _, error) in
             if let error = error {
-                print("Error fetching data: \(error)")
+                completionHandler(.failure(error))
             }
             guard let data = data else { return }
             do {
-                let result = try self.launchesDecoder.decode(Launches.self, from: data)
-                errorHandler(.success(result))
+                let result = try self.launchesDecoder.decode(Launch.Launches.self, from: data)
+                completionHandler(.success(result))
             } catch {
-                errorHandler(.failure(error))
+                completionHandler(.failure(error))
             }
         }.resume()
+    }
+}
+extension NetworkService {
+    enum Constants {
+        static let rocketURL = "https://api.spacexdata.com/v4/"
     }
 }

@@ -12,6 +12,7 @@
 		216E58272E9123AB0005F23C /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216E58262E9123AB0005F23C /* NetworkService.swift */; };
 		216E582A2E912AD70005F23C /* RocketInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216E58292E912AD70005F23C /* RocketInfo.swift */; };
 		216E582C2E93D35E0005F23C /* Quere.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216E582B2E93D35E0005F23C /* Quere.swift */; };
+		216E58302E950B8F0005F23C /* Launch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216E582F2E950B8F0005F23C /* Launch.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +42,7 @@
 		216E58262E9123AB0005F23C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		216E58292E912AD70005F23C /* RocketInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RocketInfo.swift; sourceTree = "<group>"; };
 		216E582B2E93D35E0005F23C /* Quere.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quere.swift; sourceTree = "<group>"; };
+		216E582F2E950B8F0005F23C /* Launch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Launch.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -132,6 +134,7 @@
 				216E58262E9123AB0005F23C /* NetworkService.swift */,
 				216E58292E912AD70005F23C /* RocketInfo.swift */,
 				216E582B2E93D35E0005F23C /* Quere.swift */,
+				216E582F2E950B8F0005F23C /* Launch.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -313,6 +316,7 @@
 				216E57C62E8EB0990005F23C /* PageViewController.swift in Sources */,
 				216E582C2E93D35E0005F23C /* Quere.swift in Sources */,
 				216E582A2E912AD70005F23C /* RocketInfo.swift in Sources */,
+				216E58302E950B8F0005F23C /* Launch.swift in Sources */,
 				216E58272E9123AB0005F23C /* NetworkService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
