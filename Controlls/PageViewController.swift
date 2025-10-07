@@ -19,7 +19,23 @@ class PageViewController: UIPageViewController {
         if let first = vcArray.first {
             self.setViewControllers([first], direction: .forward, animated: true)
         }
-        networkService.loadRockets()
+
+        networkService.getRockets { result in
+            switch result {
+            case .success(let rocket):
+                print("\(rocket) rockets.")
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+        networkService.getLaunches(by:"5e9d0d95eda69955f709d1eb") { result in
+            switch result {
+            case .success(let launches):
+                print("\(launches) launches.")
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
     init() {
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal)

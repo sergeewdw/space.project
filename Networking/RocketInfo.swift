@@ -8,6 +8,7 @@ struct RocketInfo: Decodable {
     let costPerLaunch: Int
     let firstStage, secondStage: Stage
     let payloadWeights: [PayloadWeight]?
+    let id: String
 }
 
 extension RocketInfo {
@@ -30,11 +31,13 @@ extension RocketInfo {
     }
 }
 
-struct RocketStart: Decodable {
-    let dateUtc: String
-    let rocket: RocketInfo
+struct Launch: Decodable {
+    let dateUtc: Date?
+    let rocket: String
+    let success: Bool
+    let name: String
 }
 
-struct QueryResult<T: Decodable>: Decodable {
-    let docs: [T]
+struct Launches: Decodable {
+    let docs: [Launch]
 }
