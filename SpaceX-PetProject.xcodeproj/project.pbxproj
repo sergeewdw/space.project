@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		216E579D2E8EADA10005F23C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 216E579B2E8EADA10005F23C /* LaunchScreen.storyboard */; };
 		216E57C62E8EB0990005F23C /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216E57C52E8EB0990005F23C /* PageViewController.swift */; };
+		216E58272E9123AB0005F23C /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216E58262E9123AB0005F23C /* NetworkService.swift */; };
+		216E582A2E912AD70005F23C /* RocketInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216E58292E912AD70005F23C /* RocketInfo.swift */; };
+		216E582C2E93D35E0005F23C /* Quere.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216E582B2E93D35E0005F23C /* Quere.swift */; };
+		216E58302E950B8F0005F23C /* Launch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216E582F2E950B8F0005F23C /* Launch.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +39,10 @@
 		216E57A32E8EADA10005F23C /* SpaceX-PetProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SpaceX-PetProjectTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		216E57AD2E8EADA10005F23C /* SpaceX-PetProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SpaceX-PetProjectUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		216E57C52E8EB0990005F23C /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		216E58262E9123AB0005F23C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		216E58292E912AD70005F23C /* RocketInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RocketInfo.swift; sourceTree = "<group>"; };
+		216E582B2E93D35E0005F23C /* Quere.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quere.swift; sourceTree = "<group>"; };
+		216E582F2E950B8F0005F23C /* Launch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Launch.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -83,9 +91,10 @@
 		216E57842E8EAD9F0005F23C = {
 			isa = PBXGroup;
 			children = (
-				216E579E2E8EADA10005F23C /* Info.plist */,
 				216E57C22E8EAEDA0005F23C /* Views */,
+				216E58252E9123540005F23C /* Networking */,
 				216E57C32E8EAEE80005F23C /* Controlls */,
+				216E579E2E8EADA10005F23C /* Info.plist */,
 				216E578F2E8EAD9F0005F23C /* SupportFiles */,
 				216E57A62E8EADA10005F23C /* SpaceX-PetProjectTests */,
 				216E57B02E8EADA10005F23C /* SpaceX-PetProjectUITests */,
@@ -117,6 +126,17 @@
 				216E57C52E8EB0990005F23C /* PageViewController.swift */,
 			);
 			path = Controlls;
+			sourceTree = "<group>";
+		};
+		216E58252E9123540005F23C /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				216E58262E9123AB0005F23C /* NetworkService.swift */,
+				216E58292E912AD70005F23C /* RocketInfo.swift */,
+				216E582B2E93D35E0005F23C /* Quere.swift */,
+				216E582F2E950B8F0005F23C /* Launch.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -294,6 +314,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				216E57C62E8EB0990005F23C /* PageViewController.swift in Sources */,
+				216E582C2E93D35E0005F23C /* Quere.swift in Sources */,
+				216E582A2E912AD70005F23C /* RocketInfo.swift in Sources */,
+				216E58302E950B8F0005F23C /* Launch.swift in Sources */,
+				216E58272E9123AB0005F23C /* NetworkService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
