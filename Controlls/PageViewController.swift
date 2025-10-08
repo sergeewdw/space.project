@@ -4,13 +4,11 @@ final class PageViewController: UIPageViewController {
     private var currentPage = 0
     private let networkService = NetworkService()
     private var vcArray: [UIViewController] = {
-        let redVC = UIViewController()
-        redVC.view.backgroundColor = .red
+        let firstVC = FirstViewController()
         let greenVC = UIViewController()
         greenVC.view.backgroundColor = .green
-        let yellowVC = UIViewController()
-        yellowVC.view.backgroundColor = .yellow
-        return [redVC, greenVC, yellowVC]
+        let thirdTVC = ThirdViewController()
+        return [firstVC, greenVC, thirdTVC]
     }()
     override func viewDidLoad() {
         super.viewDidLoad()

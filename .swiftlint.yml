@@ -50,6 +50,7 @@ identifier_name:
   min_length:
     error: 4
   excluded:
+    - key
     - id
     - URL
     - url
