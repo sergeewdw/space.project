@@ -20,7 +20,7 @@ class FirstViewController: UIViewController {
                 button.centerYAnchor.constraint(equalTo: view.centerYAnchor)
             ])
         let action = UIAction(title: "Настройки") { [weak self] _ in
-            let thirdTVC = ThirdViewController()
+            let thirdTVC = SettingViewController()
             thirdTVC.modalPresentationStyle = .formSheet
             self?.present(thirdTVC, animated: true)
         }

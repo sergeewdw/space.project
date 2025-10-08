@@ -1,9 +1,7 @@
 import UIKit
 
-final class ThirdViewController: UIViewController {
+final class SettingViewController: UIViewController {
     private let metric = Metric.allCases
-    private let units = ["m", "ft"]
-    private let unitsMass = ["kg", "lb"]
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
@@ -11,17 +9,11 @@ final class ThirdViewController: UIViewController {
         clouseButton()
         creatTableView()
     }
-    enum Metric: String, CaseIterable {
-        case height = "Высота"
-        case diameter = "Диаметр"
-        case mass = "Масса"
-        case usefulLoad = "Полезная нагрузка"
-    }
     // MARK: Table View
     private func creatTableView() {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(SettingTableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundColor = .black
@@ -33,7 +25,7 @@ final class ThirdViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
-    // MARK: Option View
+    // MARK: Setting View
     private func settingView() {
         let titelLabel = UILabel()
         titelLabel.text = "Настройки"
@@ -64,57 +56,23 @@ final class ThirdViewController: UIViewController {
     @objc private func closeButtonTapped() {
         dismiss(animated: true, completion: nil)
     }
-    // MARK: Segmented Controll
-    private func createSegmentedControl(for metricItem: Metric) -> UISegmentedControl {
-        let currentUnits: [String]
-        switch metricItem {
-        case .height, .diameter:
-            currentUnits = units
-        case .mass, .usefulLoad:
-            currentUnits = unitsMass
-        }
-        let segmentControl = UISegmentedControl(items: currentUnits)
-        segmentControl.backgroundColor = .systemGray4
-        segmentControl.selectedSegmentTintColor = .white
-        segmentControl.translatesAutoresizingMaskIntoConstraints = false
-        segmentControl.addTarget(self, action: #selector(segmentChanged(_:)), for: .valueChanged)
-        segmentControl.accessibilityIdentifier = metricItem.rawValue
-        let savedIndex = UserDefaults.standard.integer(forKey: metricItem.rawValue)
-        segmentControl.selectedSegmentIndex = savedIndex
-        return segmentControl
-    }
-    @objc private func segmentChanged(_ sender: UISegmentedControl) {
-        let metricName = sender.accessibilityIdentifier!
-        let selectedIndex = sender.selectedSegmentIndex
-        UserDefaults.standard.set(selectedIndex, forKey: metricName)
-        print("Сохранено")
-    }
 }
 // MARK: Data Sousrce
-extension ThirdViewController: UITableViewDataSource {
+extension SettingViewController: UITableViewDataSource {
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         metric.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? SettingTableViewCell else {
+            return UITableViewCell()
+        }
         let metricItem = metric[indexPath.row]
-        cell.textLabel?.text = metricItem.rawValue
-        cell.textLabel?.textColor = .white
-        cell.backgroundColor = .black
-        cell.selectionStyle = .none
-        let segmentControl = createSegmentedControl(for: metricItem)
-        cell.addSubview(segmentControl)
-        NSLayoutConstraint.activate([
-            segmentControl.trailingAnchor.constraint(equalTo: cell.trailingAnchor, constant: -40),
-            segmentControl.topAnchor.constraint(equalTo: cell.topAnchor, constant: 8),
-            segmentControl.widthAnchor.constraint(equalToConstant: 100),
-            segmentControl.heightAnchor.constraint(equalToConstant: 30)
-        ])
+        cell.configure(with: metricItem)
         return cell
     }
 }
 // MARK: Table View Delegate
-extension ThirdViewController: UITableViewDelegate {
+extension SettingViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
     }

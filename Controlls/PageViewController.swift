@@ -7,8 +7,7 @@ final class PageViewController: UIPageViewController {
         let firstVC = FirstViewController()
         let greenVC = UIViewController()
         greenVC.view.backgroundColor = .green
-        let thirdTVC = ThirdViewController()
-        return [firstVC, greenVC, thirdTVC]
+        return [firstVC, greenVC]
     }()
     override func viewDidLoad() {
         super.viewDidLoad()
