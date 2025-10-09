@@ -21,16 +21,16 @@ final class SettingsCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupUI()
-        configureElements()
+        setupViews()
+        configureUI()
         createConstarints()
     }
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     func configureElements() {
-        configureUI()
         textLabel?.text = "test text"
         unitsSelector.insertSegment(withTitle: "m", at: 0, animated: false)
         unitsSelector.insertSegment(withTitle: "ft", at: 1, animated: false)
@@ -41,7 +41,7 @@ final class SettingsCell: UITableViewCell {
 // MARK: Configure UI
 
 private extension SettingsCell {
-    func setupUI() {
+    func setupViews() {
         contentView.addSubview(label)
         contentView.addSubview(unitsSelector)
     }
@@ -51,7 +51,7 @@ private extension SettingsCell {
             label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
 
-            unitsSelector.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 20),
+            unitsSelector.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             unitsSelector.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             unitsSelector.widthAnchor.constraint(equalToConstant: 100),
             unitsSelector.heightAnchor.constraint(equalToConstant: 30)

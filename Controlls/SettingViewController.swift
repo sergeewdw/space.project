@@ -1,39 +1,40 @@
 import UIKit
 
 final class SettingViewController: UIViewController {
-    private let metric = Metric.allCases
     private let titleLabel: UILabel = {
+        let textSettings = "Настройки"
         let label = UILabel()
-        label.text = "Настройки"
+        label.text = textSettings
         label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 15, weight: .light)
+        label.font = .systemFont(ofSize: 15, weight: .light)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
-    private let clousePressedButton: UIButton = {
+    private lazy var clousePressedButton: UIButton = {
+        let textExit = "Закрыть"
         let closeButton = UIButton(type: .system)
-        closeButton.setTitle("Закрыть", for: .normal)
+        closeButton.setTitle(textExit, for: .normal)
         closeButton.setTitleColor(.white, for: .normal)
-        closeButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        closeButton.addTarget(SettingViewController.self, action: #selector(closeButtonTapped), for: .touchUpInside)
+        closeButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
+        closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
         closeButton.translatesAutoresizingMaskIntoConstraints = false
         return closeButton
     }()
 
-    private var tableView: UITableView = {
+    private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(SettingsCell.self, forCellReuseIdentifier: SettingsCell.identifier)
         tableView.backgroundColor = .black
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.dataSource = self
+        tableView.delegate = self
         return tableView
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        tableView.dataSource = self
-        tableView.delegate = self
         setupViews()
         makeConstraints()
     }
@@ -74,7 +75,7 @@ final class SettingViewController: UIViewController {
 
 extension SettingViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        metric.count
+        return 4
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
