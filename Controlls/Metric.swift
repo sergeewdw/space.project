@@ -5,4 +5,3 @@ enum Metric: String, CaseIterable {
     case mass = "Масса"
     case usefulLoad = "Полезная нагрузка"
 }
-

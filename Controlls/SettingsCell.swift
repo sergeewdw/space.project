@@ -1,6 +1,7 @@
 import UIKit
 
 final class SettingsCell: UITableViewCell {
+    static var identifier = "SettingsCellIdentifier"
     private let unitsSelector: UISegmentedControl = {
         let control = UISegmentedControl()
         control.backgroundColor = .systemGray4
@@ -8,6 +9,7 @@ final class SettingsCell: UITableViewCell {
         control.translatesAutoresizingMaskIntoConstraints = false
         return control
     }()
+
     private let label: UILabel = {
         let label = UILabel()
         label.textColor = .white
@@ -20,6 +22,7 @@ final class SettingsCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
+        configureElements()
         createConstarints()
     }
     required init?(coder: NSCoder) {
@@ -33,10 +36,6 @@ final class SettingsCell: UITableViewCell {
         unitsSelector.insertSegment(withTitle: "ft", at: 1, animated: false)
         unitsSelector.selectedSegmentIndex = 0
     }
-    func configureUI() {
-        backgroundColor = .black
-        textLabel?.textColor = .white
-    }
 }
 
 // MARK: Configure UI
@@ -49,20 +48,21 @@ private extension SettingsCell {
 
     func createConstarints() {
         NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+            label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
 
-            unitsSelector.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -40),
+            unitsSelector.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 20),
             unitsSelector.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             unitsSelector.widthAnchor.constraint(equalToConstant: 100),
             unitsSelector.heightAnchor.constraint(equalToConstant: 30)
         ])
     }
 
-    @objc private func segmentChanged(_ sender: UISegmentedControl) {
-        guard let metricName = sender.accessibilityIdentifier else { return }
-        let selectedIndex = sender.selectedSegmentIndex
-        UserDefaults.standard.set(selectedIndex, forKey: metricName)
-        print("Сохранено")
+    func configureUI() {
+        backgroundColor = .black
+        textLabel?.textColor = .white
+    }
+
+    @objc func segmentChanged() {
     }
 }
