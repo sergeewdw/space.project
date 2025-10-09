@@ -6,7 +6,3 @@ enum Metric: String, CaseIterable {
     case usefulLoad = "Полезная нагрузка"
 }
 
-enum Unit {
-    static let units = ["m", "ft"]
-    static let unitsMass = ["kg", "lb"]
-}

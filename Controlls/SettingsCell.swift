@@ -16,7 +16,7 @@ final class SettingsCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
@@ -25,30 +25,17 @@ final class SettingsCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    func configureElements(with metrics: Metric) {
-        textLabel?.text = metrics.rawValue
-        textLabel?.textColor = .white
+
+    func configureElements() {
+        configureUI()
+        textLabel?.text = "test text"
+        unitsSelector.insertSegment(withTitle: "m", at: 0, animated: false)
+        unitsSelector.insertSegment(withTitle: "ft", at: 1, animated: false)
+        unitsSelector.selectedSegmentIndex = 0
+    }
+    func configureUI() {
         backgroundColor = .black
-        selectionStyle = .none
-        var currentUnits: [String] = []
-        switch metrics {
-        case .height, .diameter:
-            currentUnits = Unit.units
-            
-        case .mass, .usefulLoad:
-            currentUnits = Unit.unitsMass
-        }
-        unitsSelector.removeAllSegments()
-        for title in currentUnits {
-            unitsSelector.insertSegment(withTitle: title, at: unitsSelector.numberOfSegments, animated: false)
-        }
-        let savedIndex = UserDefaults.standard.integer(forKey: metrics.rawValue)
-        unitsSelector.selectedSegmentIndex = savedIndex
-        unitsSelector.accessibilityIdentifier = metrics.rawValue
-        
-        unitsSelector.removeTarget(nil, action: nil, for: .allEvents)
-        unitsSelector.addTarget(self, action: #selector(segmentChanged(_:)), for: .valueChanged)
+        textLabel?.textColor = .white
     }
 }
 
@@ -59,19 +46,19 @@ private extension SettingsCell {
         contentView.addSubview(label)
         contentView.addSubview(unitsSelector)
     }
-    
+
     func createConstarints() {
         NSLayoutConstraint.activate([
             label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
             label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            
+
             unitsSelector.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -40),
             unitsSelector.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             unitsSelector.widthAnchor.constraint(equalToConstant: 100),
             unitsSelector.heightAnchor.constraint(equalToConstant: 30)
         ])
     }
-    
+
     @objc private func segmentChanged(_ sender: UISegmentedControl) {
         guard let metricName = sender.accessibilityIdentifier else { return }
         let selectedIndex = sender.selectedSegmentIndex

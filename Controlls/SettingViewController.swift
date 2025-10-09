@@ -10,7 +10,7 @@ final class SettingViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private let clousePressedButton: UIButton = {
         let closeButton = UIButton(type: .system)
         closeButton.setTitle("Закрыть", for: .normal)
@@ -19,7 +19,7 @@ final class SettingViewController: UIViewController {
         closeButton.translatesAutoresizingMaskIntoConstraints = false
         return closeButton
     }()
-    
+
     private var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(SettingsCell.self, forCellReuseIdentifier: "cell")
@@ -27,7 +27,7 @@ final class SettingViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
@@ -37,18 +37,18 @@ final class SettingViewController: UIViewController {
         setupButton()
         setupTableView()
     }
-    
+
     private func configureUI() {
         view.backgroundColor = .black
     }
-    
+
 // MARK: Table View
-    
+
     private func setupTableView() {
         view.addSubview(tableView)
         makeConstraintsTableView()
     }
-    
+
     private func makeConstraintsTableView() {
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
@@ -57,14 +57,14 @@ final class SettingViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
-    
+
 // MARK: Setting View
-    
+
     private func setupView() {
         view.addSubview(titleLabel)
         makeConstraintsView()
     }
-    
+
     private func makeConstraintsView() {
         NSLayoutConstraint.activate([
             titleLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
@@ -72,22 +72,22 @@ final class SettingViewController: UIViewController {
             titleLabel.heightAnchor.constraint(equalToConstant: 30)
         ])
     }
-    
+
 // MARK: Action
-    
+
     private func setupButton() {
         view.addSubview(clousePressedButton)
         clousePressedButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
         makeConstraintsButton()
     }
-    
+
     private func makeConstraintsButton() {
         NSLayoutConstraint.activate([
             clousePressedButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             clousePressedButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 12)
         ])
     }
-    
+
     @objc private func closeButtonTapped() {
         dismiss(animated: true, completion: nil)
     }
@@ -99,14 +99,12 @@ extension SettingViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         metric.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? SettingsCell else {
             return UITableViewCell()
         }
-        
-        let metricItem = metric[indexPath.row]
-        cell.configureElements(with: metricItem)
+        cell.configureElements()
         return cell
     }
 }

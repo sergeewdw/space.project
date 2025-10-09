@@ -6,11 +6,11 @@ final class FirstViewController: UIViewController {
         configureUI()
         makeActionButton()
     }
-    
+
     private func configureUI() {
         view.backgroundColor = .white
     }
-    
+
     private func makeActionButton() {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
