@@ -1,5 +1,4 @@
 import Foundation
-
 enum Metric: String, CaseIterable {
     case height = "Высота"
     case diameter = "Диаметр"
