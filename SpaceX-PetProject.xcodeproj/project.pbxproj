@@ -15,8 +15,9 @@
 		216E58302E950B8F0005F23C /* Launch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216E582F2E950B8F0005F23C /* Launch.swift */; };
 		216E584A2E9524330005F23C /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216E58492E9524330005F23C /* FirstViewController.swift */; };
 		216E584C2E9529A00005F23C /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216E584B2E9529A00005F23C /* SettingViewController.swift */; };
-		216E584E2E968D750005F23C /* Metric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216E584D2E968D750005F23C /* Metric.swift */; };
 		216E58502E968EA70005F23C /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216E584F2E968EA70005F23C /* SettingsCell.swift */; };
+		216E58582E9951A90005F23C /* SettingsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216E58572E9951A90005F23C /* SettingsProvider.swift */; };
+		216E585A2E9955400005F23C /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216E58592E9955400005F23C /* Settings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,8 +50,9 @@
 		216E582F2E950B8F0005F23C /* Launch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Launch.swift; sourceTree = "<group>"; };
 		216E58492E9524330005F23C /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		216E584B2E9529A00005F23C /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
-		216E584D2E968D750005F23C /* Metric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metric.swift; sourceTree = "<group>"; };
 		216E584F2E968EA70005F23C /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
+		216E58572E9951A90005F23C /* SettingsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsProvider.swift; sourceTree = "<group>"; };
+		216E58592E9955400005F23C /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -134,8 +136,9 @@
 				216E57C52E8EB0990005F23C /* PageViewController.swift */,
 				216E58492E9524330005F23C /* FirstViewController.swift */,
 				216E584B2E9529A00005F23C /* SettingViewController.swift */,
-				216E584D2E968D750005F23C /* Metric.swift */,
 				216E584F2E968EA70005F23C /* SettingsCell.swift */,
+				216E58572E9951A90005F23C /* SettingsProvider.swift */,
+				216E58592E9955400005F23C /* Settings.swift */,
 			);
 			path = Controlls;
 			sourceTree = "<group>";
@@ -327,13 +330,14 @@
 			files = (
 				216E58502E968EA70005F23C /* SettingsCell.swift in Sources */,
 				216E57C62E8EB0990005F23C /* PageViewController.swift in Sources */,
+				216E585A2E9955400005F23C /* Settings.swift in Sources */,
 				216E582C2E93D35E0005F23C /* Quere.swift in Sources */,
 				216E582A2E912AD70005F23C /* RocketInfo.swift in Sources */,
 				216E584A2E9524330005F23C /* FirstViewController.swift in Sources */,
 				216E58302E950B8F0005F23C /* Launch.swift in Sources */,
-				216E584E2E968D750005F23C /* Metric.swift in Sources */,
 				216E58272E9123AB0005F23C /* NetworkService.swift in Sources */,
 				216E584C2E9529A00005F23C /* SettingViewController.swift in Sources */,
+				216E58582E9951A90005F23C /* SettingsProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -18,7 +18,7 @@ mark:
   severity: warning
 
 trailing_whitespace:
-  ignores_empty_lines: true
+  ignores_empty_lines: false
   ignores_comments: true
 
 analyzer_rules:

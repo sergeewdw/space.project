@@ -1,6 +1,9 @@
 import UIKit
 
 final class SettingViewController: UIViewController {
+    private let settings = Metric.Settings()
+    private let storage = SettingsProvider()
+    private var index: [Int] = []
     private let titleLabel: UILabel = {
         let textSettings = "Настройки"
         let label = UILabel()
@@ -34,16 +37,55 @@ final class SettingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        settingsManager()
         configureUI()
         setupViews()
         makeConstraints()
     }
+}
 
-    private func configureUI() {
+// MARK: Data Sousrce
+
+extension SettingViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        settings.metrics.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingsCell.identifier, for: indexPath) as? SettingsCell else {
+            return UITableViewCell()
+        }
+        let rowIndex = indexPath.row
+        let item = settings.metrics[rowIndex]
+        let currentIndex = (index.count > rowIndex) ? index[rowIndex] : 0
+        cell.configureElements(item.name, item.units, currentIndex) { [weak self] newIndex in
+            guard let self = self else { return }
+            rowIndex < self.index.count ? (self.index[rowIndex] = newIndex) : self.index.append(newIndex)
+            self.storage.saveData(self.index)
+        }
+        return cell
+    }
+}
+// MARK: Table View Delegate
+
+extension SettingViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
+    }
+}
+
+private extension SettingViewController {
+    func setupViews() {
+        view.addSubview(titleLabel)
+        view.addSubview(tableView)
+        view.addSubview(clousePressedButton)
+    }
+
+    func configureUI() {
         view.backgroundColor = .black
     }
 
-    private func makeConstraints() {
+    func makeConstraints() {
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -59,37 +101,12 @@ final class SettingViewController: UIViewController {
         ])
     }
 
-// MARK: Setup View
-    private func setupViews() {
-        view.addSubview(titleLabel)
-        view.addSubview(tableView)
-        view.addSubview(clousePressedButton)
+    func settingsManager() {
+        index = storage.getData()
     }
 
-    @objc private func closeButtonTapped() {
+    @objc func closeButtonTapped() {
+        storage.saveData(index)
         dismiss(animated: true, completion: nil)
-    }
-}
-
-// MARK: Data Sousrce
-
-extension SettingViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingsCell.identifier, for: indexPath) as? SettingsCell else {
-            return UITableViewCell()
-        }
-        cell.configureElements()
-        return cell
-    }
-}
-// MARK: Table View Delegate
-
-extension SettingViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: false)
     }
 }

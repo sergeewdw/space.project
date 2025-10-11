@@ -2,6 +2,7 @@ import UIKit
 
 final class SettingsCell: UITableViewCell {
     static var identifier = "SettingsCellIdentifier"
+    private var didChangeIndex: ((Int) -> Void)?
     private let unitsSelector: UISegmentedControl = {
         let control = UISegmentedControl()
         control.backgroundColor = .systemGray4
@@ -30,11 +31,14 @@ final class SettingsCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configureElements() {
-        textLabel?.text = "test text"
-        unitsSelector.insertSegment(withTitle: "m", at: 0, animated: false)
-        unitsSelector.insertSegment(withTitle: "ft", at: 1, animated: false)
-        unitsSelector.selectedSegmentIndex = 0
+    func configureElements(_ title: String, _ units: [String], _ index: Int, _ didChangeIndex: @escaping (Int) -> Void) {
+        textLabel?.text = title
+        for (i, unit) in units.enumerated() {
+            unitsSelector.insertSegment(withTitle: unit, at: i, animated: false)
+        }
+        unitsSelector.addTarget(self, action: #selector(segmentChanged), for: .valueChanged)
+        unitsSelector.selectedSegmentIndex = index
+        self.didChangeIndex = didChangeIndex
     }
 }
 
@@ -64,5 +68,6 @@ private extension SettingsCell {
     }
 
     @objc func segmentChanged() {
+        didChangeIndex?(unitsSelector.selectedSegmentIndex)
     }
 }
