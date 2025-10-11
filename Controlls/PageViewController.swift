@@ -31,7 +31,7 @@ final class PageViewController: UIPageViewController {
             switch result {
             case .success(let launches):
                 print("\(launches) launches.")
-                
+
             case .failure(let error):
                 print(error.localizedDescription)
             }
