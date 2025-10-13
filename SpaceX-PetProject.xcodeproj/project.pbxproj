@@ -143,6 +143,7 @@
 		216E58252E9123540005F23C /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				216E58572E9951A90005F23C /* SettingsProvider.swift */,
 				216E58262E9123AB0005F23C /* NetworkService.swift */,
 				216E58292E912AD70005F23C /* RocketInfo.swift */,
 				216E582B2E93D35E0005F23C /* Quere.swift */,
@@ -154,12 +155,27 @@
 		216E585B2E9D124F0005F23C /* SettingsModule */ = {
 			isa = PBXGroup;
 			children = (
-				216E584B2E9529A00005F23C /* SettingsViewController.swift */,
-				216E584F2E968EA70005F23C /* SettingsCell.swift */,
-				216E58572E9951A90005F23C /* SettingsProvider.swift */,
-				216E58592E9955400005F23C /* Settings.swift */,
+				216E587B2E9D5AC10005F23C /* Model */,
+				216E587A2E9D5AB80005F23C /* View */,
 			);
 			path = SettingsModule;
+			sourceTree = "<group>";
+		};
+		216E587A2E9D5AB80005F23C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				216E584B2E9529A00005F23C /* SettingsViewController.swift */,
+				216E584F2E968EA70005F23C /* SettingsCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		216E587B2E9D5AC10005F23C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				216E58592E9955400005F23C /* Settings.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

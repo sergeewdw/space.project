@@ -3,6 +3,7 @@ import UIKit
 final class NetworkService {
     typealias RocketResult = (Result<[RocketInfo], Error>) -> Void
     typealias LaunchResult = (Result<Launch.Launches, Error>) -> Void
+    private let jsonEncoder = JSONEncoder()
     private let launchesDecoder: JSONDecoder = {
         let decoder = JSONDecoder()
         let formatter = DateFormatter()
@@ -11,11 +12,13 @@ final class NetworkService {
         decoder.dateDecodingStrategy = .formatted(formatter)
         return decoder
     }()
+
     private let rocketDecoder: JSONDecoder = {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         return decoder
     }()
+
     func getRockets(completionHandler: @escaping RocketResult) {
         guard let url = URL(string: Constants.rocketURL + "rockets") else { return }
         var request = URLRequest(url: url)
@@ -38,7 +41,7 @@ final class NetworkService {
         guard let url = URL(string: Constants.rocketURL + "launches/query") else { return }
         var request = URLRequest(url: url)
         let body = LaunchRequest(query: .init(rocket: rocketId, upcoming: false), options: .init(limit: 200, sort: "-date_local"))
-        let encodedBody = try? JSONEncoder().encode(body)
+        let encodedBody = try? jsonEncoder.encode(body)
         request.httpMethod = "POST"
         request.httpBody = encodedBody
         request.setValue("Application/json", forHTTPHeaderField: "Content-Type")

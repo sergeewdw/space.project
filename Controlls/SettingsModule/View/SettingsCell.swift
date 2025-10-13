@@ -3,6 +3,7 @@ import UIKit
 final class SettingsCell: UITableViewCell {
     static var identifier = "SettingsCellIdentifier"
     var didChangeIndex: ((Int) -> Void)?
+
     private lazy var unitsSelector: UISegmentedControl = {
         let control = UISegmentedControl()
         control.backgroundColor = .systemGray4

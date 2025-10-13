@@ -19,7 +19,6 @@ enum SettingsType: String, CaseIterable {
         switch self {
         case .height, .diameter:
                 .m
-
         case .mass, .payloadWeight:
                 .kg
         }
@@ -29,7 +28,6 @@ enum SettingsType: String, CaseIterable {
         switch self {
         case .height, .diameter:
                 .ft
-
         case .mass, .payloadWeight:
                 .lb
         }
