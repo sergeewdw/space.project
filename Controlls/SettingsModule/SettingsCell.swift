@@ -66,7 +66,8 @@ private extension SettingsCell {
         textLabel?.textColor = .white
     }
 
-    @objc func segmentChanged() {
+    @objc
+    func segmentChanged() {
         didChangeIndex?(unitsSelector.selectedSegmentIndex)
     }
 }
