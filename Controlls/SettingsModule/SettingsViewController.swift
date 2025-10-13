@@ -1,9 +1,9 @@
 import UIKit
 
-final class SettingViewController: UIViewController {
-    private let settings = Metric.Settings()
-    private let storage = SettingsProvider()
-    private var index: [Int] = []
+final class SettingsViewController: UIViewController {
+    private var settingsViewModels: [SettingsCellViewModel] = []
+    private let settingsProvider = SettingsProvider()
+
     private let titleLabel: UILabel = {
         let textSettings = "Настройки"
         let label = UILabel()
@@ -37,7 +37,7 @@ final class SettingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        settingsManager()
+        configureData()
         configureUI()
         setupViews()
         makeConstraints()
@@ -46,35 +46,46 @@ final class SettingViewController: UIViewController {
 
 // MARK: Data Sousrce
 
-extension SettingViewController: UITableViewDataSource {
+extension SettingsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        settings.metrics.count
+        settingsViewModels.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingsCell.identifier, for: indexPath) as? SettingsCell else {
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: SettingsCell.identifier,
+            for: indexPath
+        ) as? SettingsCell else {
             return UITableViewCell()
         }
-        let rowIndex = indexPath.row
-        let item = settings.metrics[rowIndex]
-        let currentIndex = (index.count > rowIndex) ? index[rowIndex] : 0
-        cell.configureElements(item.name, item.units, currentIndex) { [weak self] newIndex in
-            guard let self = self else { return }
-            rowIndex < self.index.count ? (self.index[rowIndex] = newIndex) : self.index.append(newIndex)
-            self.storage.saveData(self.index)
+
+        cell.configureElements(viewModel: settingsViewModels[indexPath.row])
+        cell.didChangeIndex = { [weak self] selectedIndex in
+            guard let self else { return }
+            self.settingsProvider.saveUnits(
+                for: self.settingsViewModels[indexPath.row].type,
+                units: SettingsUnits(rawValue: selectedIndex)
+            )
         }
         return cell
     }
 }
+
 // MARK: Table View Delegate
 
-extension SettingViewController: UITableViewDelegate {
+extension SettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
     }
 }
 
-private extension SettingViewController {
+// MARK: Private
+
+private extension SettingsViewController {
+    func configureData() {
+        settingsViewModels = SettingsType.allCases.map { SettingsCellViewModel(type: $0, settingsUnits: settingsProvider.getData(for: $0)) }
+    }
+
     func setupViews() {
         view.addSubview(titleLabel)
         view.addSubview(tableView)
@@ -101,12 +112,8 @@ private extension SettingViewController {
         ])
     }
 
-    func settingsManager() {
-        index = storage.getData()
-    }
-
-    @objc func closeButtonTapped() {
-        storage.saveData(index)
+    @objc
+    func closeButtonTapped() {
         dismiss(animated: true, completion: nil)
     }
 }

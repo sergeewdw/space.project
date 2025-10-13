@@ -2,12 +2,13 @@ import UIKit
 
 final class SettingsCell: UITableViewCell {
     static var identifier = "SettingsCellIdentifier"
-    private var didChangeIndex: ((Int) -> Void)?
-    private let unitsSelector: UISegmentedControl = {
+    var didChangeIndex: ((Int) -> Void)?
+    private lazy var unitsSelector: UISegmentedControl = {
         let control = UISegmentedControl()
         control.backgroundColor = .systemGray4
         control.selectedSegmentTintColor = .white
         control.translatesAutoresizingMaskIntoConstraints = false
+        control.addTarget(self, action: #selector(segmentChanged), for: .valueChanged)
         return control
     }()
 
@@ -31,14 +32,11 @@ final class SettingsCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configureElements(_ title: String, _ units: [String], _ index: Int, _ didChangeIndex: @escaping (Int) -> Void) {
-        textLabel?.text = title
-        for (i, unit) in units.enumerated() {
-            unitsSelector.insertSegment(withTitle: unit, at: i, animated: false)
-        }
-        unitsSelector.addTarget(self, action: #selector(segmentChanged), for: .valueChanged)
-        unitsSelector.selectedSegmentIndex = index
-        self.didChangeIndex = didChangeIndex
+    func configureElements(viewModel: SettingsCellViewModel) {
+        label.text = viewModel.type.rawValue
+        unitsSelector.insertSegment(withTitle: viewModel.type.metricDimension.rawValue, at: 0, animated: false)
+        unitsSelector.insertSegment(withTitle: viewModel.type.imperialDimension.rawValue, at: 1, animated: false)
+        unitsSelector.selectedSegmentIndex = viewModel.settingsUnits.rawValue
     }
 }
 
@@ -63,6 +61,7 @@ private extension SettingsCell {
     }
 
     func configureUI() {
+        selectionStyle = .none
         backgroundColor = .black
         textLabel?.textColor = .white
     }

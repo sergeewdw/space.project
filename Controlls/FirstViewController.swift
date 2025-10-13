@@ -25,7 +25,7 @@ final class FirstViewController: UIViewController {
             button.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
         let action = UIAction(title: "Настройки") { [weak self] _ in
-            let settingVC = SettingViewController()
+            let settingVC = SettingsViewController()
             settingVC.modalPresentationStyle = .formSheet
             self?.present(settingVC, animated: true)
         }

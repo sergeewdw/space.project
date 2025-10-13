@@ -3,6 +3,7 @@ import UIKit
 final class PageViewController: UIPageViewController {
     private var currentPage = 0
     private let networkService = NetworkService()
+
     private var vcArray: [UIViewController] = {
         let firstVC = FirstViewController()
         let greenVC = UIViewController()
