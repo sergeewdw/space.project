@@ -2,7 +2,7 @@ import UIKit
 
 final class SettingsViewController: UIViewController {
     private var settingsViewModels: [SettingsCellViewModel] = []
-    private let settingsProvider = SettingsProvider()
+    private let settingsProvider = StorageProvider()
 
     private let titleLabel: UILabel = {
         let textSettings = "Настройки"

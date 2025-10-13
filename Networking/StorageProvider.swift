@@ -1,6 +1,6 @@
 import Foundation
 
-final class SettingsProvider {
+final class StorageProvider {
     private let userDefaults = UserDefaults.standard
     private let jsonEncoder = JSONEncoder()
     private let jsonDecoder = JSONDecoder()
