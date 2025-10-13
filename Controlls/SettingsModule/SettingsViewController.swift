@@ -1,6 +1,9 @@
 import UIKit
 
-final class SettingViewController: UIViewController {
+final class SettingsViewController: UIViewController {
+    private var settingsViewModels: [SettingsCellViewModel] = []
+    private let settingsProvider = SettingsProvider()
+
     private let titleLabel: UILabel = {
         let textSettings = "Настройки"
         let label = UILabel()
@@ -34,16 +37,66 @@ final class SettingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureData()
         configureUI()
         setupViews()
         makeConstraints()
     }
+}
 
-    private func configureUI() {
+// MARK: Data Sousrce
+
+extension SettingsViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        settingsViewModels.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: SettingsCell.identifier,
+            for: indexPath
+        ) as? SettingsCell else {
+            return UITableViewCell()
+        }
+
+        cell.configureElements(viewModel: settingsViewModels[indexPath.row])
+        cell.didChangeIndex = { [weak self] selectedIndex in
+            guard let self else { return }
+            self.settingsProvider.saveUnits(
+                for: self.settingsViewModels[indexPath.row].type,
+                units: SettingsUnits(rawValue: selectedIndex)
+            )
+        }
+        return cell
+    }
+}
+
+// MARK: Table View Delegate
+
+extension SettingsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
+    }
+}
+
+// MARK: Private
+
+private extension SettingsViewController {
+    func configureData() {
+        settingsViewModels = SettingsType.allCases.map { SettingsCellViewModel(type: $0, settingsUnits: settingsProvider.getData(for: $0)) }
+    }
+
+    func setupViews() {
+        view.addSubview(titleLabel)
+        view.addSubview(tableView)
+        view.addSubview(clousePressedButton)
+    }
+
+    func configureUI() {
         view.backgroundColor = .black
     }
 
-    private func makeConstraints() {
+    func makeConstraints() {
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -59,37 +112,8 @@ final class SettingViewController: UIViewController {
         ])
     }
 
-// MARK: Setup View
-    private func setupViews() {
-        view.addSubview(titleLabel)
-        view.addSubview(tableView)
-        view.addSubview(clousePressedButton)
-    }
-
-    @objc private func closeButtonTapped() {
+    @objc
+    func closeButtonTapped() {
         dismiss(animated: true, completion: nil)
-    }
-}
-
-// MARK: Data Sousrce
-
-extension SettingViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingsCell.identifier, for: indexPath) as? SettingsCell else {
-            return UITableViewCell()
-        }
-        cell.configureElements()
-        return cell
-    }
-}
-// MARK: Table View Delegate
-
-extension SettingViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: false)
     }
 }

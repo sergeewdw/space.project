@@ -3,6 +3,7 @@ import UIKit
 final class PageViewController: UIPageViewController {
     private var currentPage = 0
     private let networkService = NetworkService()
+
     private var vcArray: [UIViewController] = {
         let firstVC = FirstViewController()
         let greenVC = UIViewController()
@@ -31,7 +32,7 @@ final class PageViewController: UIPageViewController {
             switch result {
             case .success(let launches):
                 print("\(launches) launches.")
-                
+
             case .failure(let error):
                 print(error.localizedDescription)
             }
