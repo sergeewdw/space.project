@@ -1,6 +1,6 @@
 import UIKit
 
-class RocketCell: UICollectionViewCell {
+final class RocketCell: UICollectionViewCell {
     static let identifier = "LaunchesCellIdentifier"
     
     private let viewLabel: UIView = {

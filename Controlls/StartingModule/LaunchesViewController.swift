@@ -1,6 +1,6 @@
 import UIKit
 
-class LaunchesViewController: UIViewController {
+final class LaunchesViewController: UIViewController {
     private var items: [Launch] = []
     private let network = NetworkService()
 
