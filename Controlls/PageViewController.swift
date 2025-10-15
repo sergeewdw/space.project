@@ -39,8 +39,9 @@ final class PageViewController: UIPageViewController {
         }
     }
 
-    init() {
-        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal)
+    init(transitionStyle: TransitionStyle = .scroll,
+         navigationOrientation: NavigationOrientation = .horizontal) {
+        super.init(transitionStyle: transitionStyle, navigationOrientation: navigationOrientation, options: nil)
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

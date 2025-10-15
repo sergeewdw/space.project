@@ -37,6 +37,7 @@ final class NetworkService {
             }
         }.resume()
     }
+
     func getLaunches(by rocketId: String, completionHandler: @escaping LaunchResult) {
         guard let url = URL(string: Constants.rocketURL + "launches/query") else { return }
         var request = URLRequest(url: url)
