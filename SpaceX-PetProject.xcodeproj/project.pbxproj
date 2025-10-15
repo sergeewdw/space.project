@@ -17,9 +17,10 @@
 		216E584C2E9529A00005F23C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216E584B2E9529A00005F23C /* SettingsViewController.swift */; };
 		216E58502E968EA70005F23C /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216E584F2E968EA70005F23C /* SettingsCell.swift */; };
 		216E58582E9951A90005F23C /* StorageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216E58572E9951A90005F23C /* StorageProvider.swift */; };
-		216E585A2E9955400005F23C /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216E58592E9955400005F23C /* Settings.swift */; };
+		216E585A2E9955400005F23C /* SettingsCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216E58592E9955400005F23C /* SettingsCellViewModel.swift */; };
 		216E58962E9E3D200005F23C /* LaunchesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216E58952E9E3D200005F23C /* LaunchesViewController.swift */; };
 		216E58992E9E42AB0005F23C /* RocketCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216E58982E9E42AB0005F23C /* RocketCell.swift */; };
+		216E58B52E9FA1F20005F23C /* LaunchCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216E58B42E9FA1F20005F23C /* LaunchCellViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,9 +55,10 @@
 		216E584B2E9529A00005F23C /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		216E584F2E968EA70005F23C /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		216E58572E9951A90005F23C /* StorageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageProvider.swift; sourceTree = "<group>"; };
-		216E58592E9955400005F23C /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		216E58592E9955400005F23C /* SettingsCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCellViewModel.swift; sourceTree = "<group>"; };
 		216E58952E9E3D200005F23C /* LaunchesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchesViewController.swift; sourceTree = "<group>"; };
 		216E58982E9E42AB0005F23C /* RocketCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RocketCell.swift; sourceTree = "<group>"; };
+		216E58B42E9FA1F20005F23C /* LaunchCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchCellViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -178,7 +180,7 @@
 		216E587B2E9D5AC10005F23C /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				216E58592E9955400005F23C /* Settings.swift */,
+				216E58592E9955400005F23C /* SettingsCellViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -186,10 +188,27 @@
 		216E58942E9E3C440005F23C /* StartingModule */ = {
 			isa = PBXGroup;
 			children = (
+				216E58B72E9FA4A90005F23C /* Model */,
+				216E58B62E9FA49C0005F23C /* View */,
+			);
+			path = StartingModule;
+			sourceTree = "<group>";
+		};
+		216E58B62E9FA49C0005F23C /* View */ = {
+			isa = PBXGroup;
+			children = (
 				216E58952E9E3D200005F23C /* LaunchesViewController.swift */,
 				216E58982E9E42AB0005F23C /* RocketCell.swift */,
 			);
-			path = StartingModule;
+			path = View;
+			sourceTree = "<group>";
+		};
+		216E58B72E9FA4A90005F23C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				216E58B42E9FA1F20005F23C /* LaunchCellViewModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -369,11 +388,12 @@
 				216E58502E968EA70005F23C /* SettingsCell.swift in Sources */,
 				216E58992E9E42AB0005F23C /* RocketCell.swift in Sources */,
 				216E57C62E8EB0990005F23C /* PageViewController.swift in Sources */,
-				216E585A2E9955400005F23C /* Settings.swift in Sources */,
+				216E585A2E9955400005F23C /* SettingsCellViewModel.swift in Sources */,
 				216E582C2E93D35E0005F23C /* Quere.swift in Sources */,
 				216E582A2E912AD70005F23C /* RocketInfo.swift in Sources */,
 				216E584A2E9524330005F23C /* FirstViewController.swift in Sources */,
 				216E58962E9E3D200005F23C /* LaunchesViewController.swift in Sources */,
+				216E58B52E9FA1F20005F23C /* LaunchCellViewModel.swift in Sources */,
 				216E58302E950B8F0005F23C /* Launch.swift in Sources */,
 				216E58272E9123AB0005F23C /* NetworkService.swift in Sources */,
 				216E584C2E9529A00005F23C /* SettingsViewController.swift in Sources */,

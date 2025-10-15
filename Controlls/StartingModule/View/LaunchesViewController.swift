@@ -1,11 +1,11 @@
 import UIKit
 
 final class LaunchesViewController: UIViewController {
-    private var items: [Launch] = []
+    private var items: [LaunchCellViewModel] = []
     private let network = NetworkService()
 
     private lazy var collectionView: UICollectionView = {
-        let view = UICollectionView(frame: .zero, collectionViewLayout: setupFlowLayout())
+        let view = UICollectionView(frame: .zero, collectionViewLayout: setupCompositionalLayout())
         view.register(RocketCell.self, forCellWithReuseIdentifier: RocketCell.identifier)
         view.backgroundColor = .black
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -51,7 +51,7 @@ private extension LaunchesViewController {
             switch result {
             case let .success(items):
                 DispatchQueue.main.async {
-                    self?.items = items.docs
+                    self?.items = items.docs.map { LaunchCellViewModel(from: $0) }
                     self?.collectionView.reloadData()
                 }
             case .failure(let error):
@@ -69,11 +69,27 @@ private extension LaunchesViewController {
         ])
     }
 
-    func setupFlowLayout() -> UICollectionViewFlowLayout {
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = .init(width: 390, height: 105)
-        layout.minimumLineSpacing = 0
-        return layout
+    func setupCompositionalLayout() -> UICollectionViewCompositionalLayout {
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .absolute(105)
+        )
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .absolute(105)
+        )
+        let group = NSCollectionLayoutGroup.vertical(
+            layoutSize: groupSize,
+            subitems: [item]
+        )
+
+        let section = NSCollectionLayoutSection(group: group)
+        section.interGroupSpacing = 0
+        section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 15, bottom: 15, trailing: 15)
+
+        return UICollectionViewCompositionalLayout(section: section)
     }
 
     func nameRocketView() {
