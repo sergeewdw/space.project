@@ -17,6 +17,7 @@ final class LaunchesViewController: UIViewController {
         let indicator = UIActivityIndicatorView(style: .large)
         indicator.color = .white
         indicator.hidesWhenStopped = true
+        indicator.translatesAutoresizingMaskIntoConstraints = false
         return indicator
     }()
 
@@ -28,6 +29,8 @@ final class LaunchesViewController: UIViewController {
     private let placeholderLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
+        label.numberOfLines = 0
+        label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -71,9 +74,7 @@ private extension LaunchesViewController {
         DispatchQueue.main.async { [weak self] in
             self?.activityIndicator.startAnimating()
         }
-
-        self.activityIndicator.startAnimating()
-        network.getLaunches(by: "5e9d0d95eda69955f709d1eb") {  [weak self] result in
+        network.getLaunches(by: "5e9d0d95eda69973a809d1ec") {  [weak self] result in
             DispatchQueue.main.async {
                 self?.activityIndicator.stopAnimating()
                 switch result {
@@ -99,8 +100,8 @@ private extension LaunchesViewController {
             }
         case .empty:
             displayLabel(text: "No launches have been made yet.")
-        case .error:
-            displayLabel(text: "The network data is invalid.")
+        case .error(let error):
+            displayLabel(text: error.localizedDescription)
         }
     }
 
@@ -118,7 +119,12 @@ private extension LaunchesViewController {
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
 
             placeholderLabel.centerXAnchor.constraint(equalTo: cellType.centerXAnchor),
-            placeholderLabel.centerYAnchor.constraint(equalTo: cellType.centerYAnchor)
+            placeholderLabel.centerYAnchor.constraint(equalTo: cellType.centerYAnchor),
+            placeholderLabel.leadingAnchor.constraint(greaterThanOrEqualTo: cellType.leadingAnchor, constant: 24),
+            placeholderLabel.trailingAnchor.constraint(lessThanOrEqualTo: cellType.trailingAnchor, constant: -24),
+
+            activityIndicator.centerXAnchor.constraint(equalTo: cellType.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: cellType.centerYAnchor)
         ])
     }
 

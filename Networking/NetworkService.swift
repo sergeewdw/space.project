@@ -45,10 +45,11 @@ final class NetworkService {
         let encodedBody = try? jsonEncoder.encode(body)
         request.httpMethod = "POST"
         request.httpBody = encodedBody
-        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         URLSession.shared.dataTask(with: request) { (data, _, error) in
             if let error = error {
                 completionHandler(.failure(error))
+                return
             }
             guard let data = data else { return }
             do {
