@@ -1,11 +1,11 @@
 import UIKit
 
-final class RocketCell: UICollectionViewCell {
+final class LaunchesCell: UICollectionViewCell {
     static let identifier = "LaunchesCellIdentifier"
 
     private let viewLabel: UIView = {
         let view = UIView()
-        view.backgroundColor = .darkGray
+        view.backgroundColor = UIColor(white: 1, alpha: 0.07)
         view.layer.cornerRadius = 25
         view.layer.cornerCurve = .continuous
         view.layer.masksToBounds = true
@@ -38,6 +38,7 @@ final class RocketCell: UICollectionViewCell {
     private let rocketImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "rocketImage")
+        imageView.tintColor = .gray
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -50,11 +51,11 @@ final class RocketCell: UICollectionViewCell {
         return imageView
     }()
 
-    private let dateStartRocket: DateFormatter = {
-        let data = DateFormatter()
-        data.locale = Locale(identifier: "en_US_POSIX")
-        data.dateFormat = "d MMMM, yyyy"
-        return data
+    private let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "d MMMM, yyyy"
+        return formatter
     }()
 
     override init(frame: CGRect) {
@@ -69,13 +70,12 @@ final class RocketCell: UICollectionViewCell {
 
     func configure(with rockets: LaunchCellViewModel) {
         rocketNameLabel.text = rockets.name
-        guard let date = rockets.dateUtc else { return }
-        dateLabel.text = dateStartRocket.string(from: date)
+        dateLabel.text = dateFormatter.string(from: rockets.dateUtc)
         setFlightStatus(success: rockets.success)
     }
 }
 
-private extension RocketCell {
+private extension LaunchesCell {
     func setupViews() {
         contentView.addSubview(viewLabel)
         viewLabel.addSubview(rocketNameLabel)
@@ -117,7 +117,7 @@ private extension RocketCell {
             flightDisplayView.heightAnchor.constraint(equalToConstant: 15)
         ])
     }
-    
+
     func setFlightStatus(success: Bool) {
         let assetName = success ? "checkMark" : "redCross"
         flightDisplayView.image = UIImage(named: assetName)

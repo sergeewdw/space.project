@@ -1,7 +1,7 @@
 import Foundation
 
 struct Launch: Decodable {
-    let dateUtc: Date?
+    let dateUtc: Date
     let rocket: String
     let success: Bool
     let name: String

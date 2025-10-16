@@ -2,7 +2,7 @@ import Foundation
 
 struct LaunchCellViewModel {
     let name: String
-    let dateUtc: Date?
+    let dateUtc: Date
     let success: Bool
 
     init(from launch: Launch) {
