@@ -2,7 +2,7 @@ import UIKit
 
 final class NetworkService {
     typealias RocketResult = (Result<[RocketInfo], Error>) -> Void
-    typealias LaunchResult = (Result<Launch.Launches, Error>) -> Void
+    typealias LaunchResult = (Result<Launches.Launch, Error>) -> Void
     private let jsonEncoder = JSONEncoder()
     private let launchesDecoder: JSONDecoder = {
         let decoder = JSONDecoder()
@@ -53,7 +53,7 @@ final class NetworkService {
             }
             guard let data = data else { return }
             do {
-                let result = try self.launchesDecoder.decode(Launch.Launches.self, from: data)
+                let result = try self.launchesDecoder.decode(Launches.Launch.self, from: data)
                 completionHandler(.success(result))
             } catch {
                 completionHandler(.failure(error))

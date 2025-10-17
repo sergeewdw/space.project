@@ -1,7 +1,7 @@
 import Foundation
 
 enum State {
-    case launches(Launch.Launches)
+    case launches(Launches.Launch)
     case empty
     case error(Error)
 }

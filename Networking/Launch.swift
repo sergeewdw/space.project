@@ -1,6 +1,6 @@
 import Foundation
 
-struct Launch: Decodable {
+struct Launches: Decodable {
     let dateUtc: Date
     let rocket: String
     let success: Bool
@@ -22,8 +22,8 @@ struct Launch: Decodable {
     }
 }
 
-extension Launch {
-    struct Launches: Decodable {
-        let docs: [Launch]
+extension Launches {
+    struct Launch: Decodable {
+        let docs: [Launches]
     }
 }

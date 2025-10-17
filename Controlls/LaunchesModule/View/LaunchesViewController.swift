@@ -1,7 +1,7 @@
 import UIKit
 
 final class LaunchesViewController: UIViewController {
-    private var items: [LaunchCellViewModel] = []
+    private var items: [LaunchCellViewModels] = []
     private let network = NetworkService()
 
     private lazy var collectionView: UICollectionView = {
@@ -19,11 +19,6 @@ final class LaunchesViewController: UIViewController {
         indicator.hidesWhenStopped = true
         indicator.translatesAutoresizingMaskIntoConstraints = false
         return indicator
-    }()
-
-    private let cellType: UIView = {
-        let view = UIView()
-        return view
     }()
 
     private let placeholderLabel: UILabel = {
@@ -65,15 +60,12 @@ extension LaunchesViewController: UICollectionViewDataSource {
 private extension LaunchesViewController {
     func setupViews() {
         view.addSubview(collectionView)
-        collectionView.backgroundView = cellType
-        cellType.addSubview(activityIndicator)
-        cellType.addSubview(placeholderLabel)
+        collectionView.addSubview(activityIndicator)
+        collectionView.addSubview(placeholderLabel)
     }
 
     func getLaunches() {
-        DispatchQueue.main.async { [weak self] in
-            self?.activityIndicator.startAnimating()
-        }
+            self.activityIndicator.startAnimating()
         network.getLaunches(by: "5e9d0d95eda69973a809d1ec") {  [weak self] result in
             DispatchQueue.main.async {
                 self?.activityIndicator.stopAnimating()
@@ -94,7 +86,7 @@ private extension LaunchesViewController {
     func displayView(_ state: State) {
         switch state {
         case .launches(let items):
-            self.items = items.docs.map { LaunchCellViewModel(from: $0) }
+            self.items = items.docs.map { LaunchCellViewModels(from: $0) }
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
             }
@@ -118,13 +110,13 @@ private extension LaunchesViewController {
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
 
-            placeholderLabel.centerXAnchor.constraint(equalTo: cellType.centerXAnchor),
-            placeholderLabel.centerYAnchor.constraint(equalTo: cellType.centerYAnchor),
-            placeholderLabel.leadingAnchor.constraint(greaterThanOrEqualTo: cellType.leadingAnchor, constant: 24),
-            placeholderLabel.trailingAnchor.constraint(lessThanOrEqualTo: cellType.trailingAnchor, constant: -24),
+            placeholderLabel.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor),
+            placeholderLabel.centerYAnchor.constraint(equalTo: collectionView.centerYAnchor),
+            placeholderLabel.leadingAnchor.constraint(greaterThanOrEqualTo: collectionView.leadingAnchor, constant: 24),
+            placeholderLabel.trailingAnchor.constraint(lessThanOrEqualTo: collectionView.trailingAnchor, constant: -24),
 
-            activityIndicator.centerXAnchor.constraint(equalTo: cellType.centerXAnchor),
-            activityIndicator.centerYAnchor.constraint(equalTo: cellType.centerYAnchor)
+            activityIndicator.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: collectionView.centerYAnchor)
         ])
     }
 
