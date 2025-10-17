@@ -68,7 +68,7 @@ final class LaunchesCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(with rockets: LaunchCellViewModels) {
+    func configure(with rockets: LaunchCellVIewModels) {
         rocketNameLabel.text = rockets.name
         dateLabel.text = dateFormatter.string(from: rockets.dateUtc)
         setFlightStatus(success: rockets.success)

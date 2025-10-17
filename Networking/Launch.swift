@@ -1,6 +1,10 @@
 import Foundation
 
 struct Launches: Decodable {
+    let docs: [Launch]
+}
+
+struct Launch: Decodable {
     let dateUtc: Date
     let rocket: String
     let success: Bool
@@ -19,11 +23,5 @@ struct Launches: Decodable {
         self.rocket = try container.decode(String.self, forKey: .rocket)
         self.success = try container.decodeIfPresent(Bool.self, forKey: .success) ?? false
         self.name = try container.decode(String.self, forKey: .name)
-    }
-}
-
-extension Launches {
-    struct Launch: Decodable {
-        let docs: [Launches]
     }
 }
