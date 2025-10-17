@@ -2,7 +2,7 @@ import UIKit
 
 final class NetworkService {
     typealias RocketResult = (Result<[RocketInfo], Error>) -> Void
-    typealias LaunchResult = (Result<Launch.Launches, Error>) -> Void
+    typealias LaunchResult = (Result<Launches, Error>) -> Void
     private let jsonEncoder = JSONEncoder()
     private let launchesDecoder: JSONDecoder = {
         let decoder = JSONDecoder()
@@ -37,6 +37,7 @@ final class NetworkService {
             }
         }.resume()
     }
+
     func getLaunches(by rocketId: String, completionHandler: @escaping LaunchResult) {
         guard let url = URL(string: Constants.rocketURL + "launches/query") else { return }
         var request = URLRequest(url: url)
@@ -44,14 +45,15 @@ final class NetworkService {
         let encodedBody = try? jsonEncoder.encode(body)
         request.httpMethod = "POST"
         request.httpBody = encodedBody
-        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         URLSession.shared.dataTask(with: request) { (data, _, error) in
             if let error = error {
                 completionHandler(.failure(error))
+                return
             }
             guard let data = data else { return }
             do {
-                let result = try self.launchesDecoder.decode(Launch.Launches.self, from: data)
+                let result = try self.launchesDecoder.decode(Launches.self, from: data)
                 completionHandler(.success(result))
             } catch {
                 completionHandler(.failure(error))
