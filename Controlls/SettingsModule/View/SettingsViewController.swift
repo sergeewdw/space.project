@@ -2,28 +2,7 @@ import UIKit
 
 final class SettingsViewController: UIViewController {
     private var settingsViewModels: [SettingsCellViewModel] = []
-    private let settingsProvider = StorageProvider()
-
-    private let titleLabel: UILabel = {
-        let textSettings = "Настройки"
-        let label = UILabel()
-        label.text = textSettings
-        label.textColor = .white
-        label.font = .systemFont(ofSize: 15, weight: .light)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-
-    private lazy var clousePressedButton: UIButton = {
-        let textExit = "Закрыть"
-        let closeButton = UIButton(type: .system)
-        closeButton.setTitle(textExit, for: .normal)
-        closeButton.setTitleColor(.white, for: .normal)
-        closeButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
-        closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
-        closeButton.translatesAutoresizingMaskIntoConstraints = false
-        return closeButton
-    }()
+    private let settingsProvider: StorageProvider
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -35,12 +14,27 @@ final class SettingsViewController: UIViewController {
         return tableView
     }()
 
+    init(storage: StorageProvider) {
+        self.settingsProvider = storage
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureData()
         configureUI()
         setupViews()
         makeConstraints()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        setupNavBar()
     }
 }
 
@@ -87,9 +81,7 @@ private extension SettingsViewController {
     }
 
     func setupViews() {
-        view.addSubview(titleLabel)
         view.addSubview(tableView)
-        view.addSubview(clousePressedButton)
     }
 
     func configureUI() {
@@ -101,19 +93,32 @@ private extension SettingsViewController {
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-
-            titleLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 12),
-            titleLabel.heightAnchor.constraint(equalToConstant: 30),
-
-            clousePressedButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            clousePressedButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 12)
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+
+    func setupNavBar() {
+        title = "Настройки"
+
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .black
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+        navigationItem.standardAppearance = appearance
+        navigationItem.scrollEdgeAppearance = appearance
+        navigationController?.navigationBar.tintColor = .white
+        navigationItem.hidesBackButton = true
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            title: "Закрыть",
+            style: .plain,
+            target: self,
+            action: #selector(closeButtonTapped)
+        )
     }
 
     @objc
     func closeButtonTapped() {
-        dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
     }
 }

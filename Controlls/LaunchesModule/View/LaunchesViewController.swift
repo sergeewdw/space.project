@@ -3,6 +3,8 @@ import UIKit
 final class LaunchesViewController: UIViewController {
     private var viewModels: [LaunchCellVIewModels] = []
     private let networkService = NetworkService()
+    private let rocketName: String
+    private let rocketId: String
 
     private lazy var collectionView: UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: setupCompositionalLayout())
@@ -30,11 +32,20 @@ final class LaunchesViewController: UIViewController {
         return label
     }()
 
+    init(rocket: RocketInfo) {
+        self.rocketName = rocket.name
+        self.rocketId = rocket.id
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         makeConstaraints()
-        nameRocketView()
         getLaunches()
     }
 }
@@ -62,11 +73,12 @@ private extension LaunchesViewController {
         view.addSubview(collectionView)
         collectionView.addSubview(activityIndicator)
         collectionView.addSubview(placeholderLabel)
+        navigationItem.title = rocketName
     }
 
     func getLaunches() {
         self.activityIndicator.startAnimating()
-        networkService.getLaunches(by: "5e9d0d95eda69973a809d1ec") {  [weak self] result in
+        networkService.getLaunches(by: rocketId) {  [weak self] result in
             DispatchQueue.main.async {
                 self?.activityIndicator.stopAnimating()
                 switch result {
@@ -137,10 +149,6 @@ private extension LaunchesViewController {
         section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 15, bottom: 15, trailing: 15)
 
         return UICollectionViewCompositionalLayout(section: section)
-    }
-
-    func nameRocketView() {
-        navigationItem.title = "Falcon 1"
     }
 }
 
