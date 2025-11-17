@@ -13,7 +13,7 @@ enum SettingsType: String, CaseIterable {
     case height = "Высота"
     case diameter = "Диаметр"
     case mass = "Масса"
-    case payloadWeight = "Полезная нагрузка"
+    case payloadWeight = "Нагрузка"
 
     var metricDimension: SettingsDimension {
         switch self {

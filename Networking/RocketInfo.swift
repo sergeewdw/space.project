@@ -1,10 +1,11 @@
 import UIKit
 
 struct RocketInfo: Decodable {
+    let flickrImages: [String]?
     let name: String
     let height, diameter: Measure
     let mass: Mass
-    let country: String
+    let firstFlight, country: String?
     let costPerLaunch: Int
     let firstStage, secondStage: Stage
     let payloadWeights: [PayloadWeight]?

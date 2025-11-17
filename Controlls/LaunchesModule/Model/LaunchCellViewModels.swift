@@ -1,6 +1,6 @@
 import Foundation
 
-struct LaunchCellVIewModels {
+struct LaunchCellViewModels {
     let name: String
     let dateUtc: Date
     let success: Bool
