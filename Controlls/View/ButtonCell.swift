@@ -2,7 +2,7 @@ import UIKit
 
 final class ButtonCell: UICollectionViewCell {
     static var identifier = "ButtonCellKey"
-    var onStartingsTap: (() -> Void)?
+    weak var delegate: RocketScreenDelegate?
     private lazy var startButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Просмотр запусков", for: .normal)
@@ -11,14 +11,6 @@ final class ButtonCell: UICollectionViewCell {
         button.tintColor = .white
         button.addTarget(self, action: #selector(startTapped), for: .touchUpInside)
         return button
-    }()
-
-    private let mainView: UIView = {
-        let view = UIView()
-        view.layer.cornerRadius = 8
-        view.backgroundColor = UIColor(white: 1, alpha: 0.07)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
     }()
 
     override init(frame: CGRect) {
@@ -32,22 +24,18 @@ final class ButtonCell: UICollectionViewCell {
 
 private extension ButtonCell {
     func makeConstraints() {
-        contentView.addSubview(mainView)
-        mainView.addSubview(startButton)
+        contentView.addSubview(startButton)
+        contentView.layer.cornerRadius = 8
+        contentView.backgroundColor = UIColor(white: 1, alpha: 0.07)
         NSLayoutConstraint.activate([
-            mainView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            mainView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            mainView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            mainView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-
-            startButton.centerXAnchor.constraint(equalTo: mainView.centerXAnchor),
-            startButton.centerYAnchor.constraint(equalTo: mainView.centerYAnchor),
+            startButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            startButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             startButton.heightAnchor.constraint(equalToConstant: 48)
         ])
     }
 
     @objc
     func startTapped() {
-        onStartingsTap?()
+        delegate?.didTapStartLaunches()
     }
 }

@@ -3,14 +3,6 @@ import UIKit
 
 final class CharacteristicsCell: UICollectionViewCell {
     static var identifier = "CharacteristicsCellKey"
-    private let mainView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor(white: 1, alpha: 0.07)
-        view.layer.cornerRadius = 25
-        return view
-    }()
-
     private let valueLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -27,7 +19,7 @@ final class CharacteristicsCell: UICollectionViewCell {
         label.numberOfLines = 1
         label.textColor = .gray
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 15, weight: .medium)
+        label.font = .systemFont(ofSize: 14, weight: .medium)
         return label
     }()
 
@@ -48,23 +40,19 @@ final class CharacteristicsCell: UICollectionViewCell {
 
 private extension CharacteristicsCell {
     func createConstraints() {
-        contentView.addSubview(mainView)
-        mainView.addSubview(valueLabel)
-        mainView.addSubview(unitsLabel)
+        contentView.addSubview(valueLabel)
+        contentView.addSubview(unitsLabel)
+        contentView.backgroundColor = UIColor(white: 1, alpha: 0.07)
+        contentView.layer.cornerRadius = 25
         NSLayoutConstraint.activate([
-            mainView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            mainView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            mainView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            mainView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-
-            valueLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 20),
-            valueLabel.leadingAnchor.constraint(equalTo: mainView.leadingAnchor),
-            valueLabel.trailingAnchor.constraint(equalTo: mainView.trailingAnchor),
+            valueLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
+            valueLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            valueLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
 
             unitsLabel.topAnchor.constraint(equalTo: valueLabel.bottomAnchor, constant: 2),
-            unitsLabel.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 8),
-            unitsLabel.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -8),
-            unitsLabel.bottomAnchor.constraint(equalTo: mainView.bottomAnchor, constant: -25)
+            unitsLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
+            unitsLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
+            unitsLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -25)
         ])
     }
 }

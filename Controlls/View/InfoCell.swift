@@ -3,12 +3,6 @@ import UIKit
 
 final class InfoCell: UICollectionViewCell {
     static var identifier = "InfoCellKey"
-    private let container: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-
     private var rightLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -42,28 +36,27 @@ final class InfoCell: UICollectionViewCell {
         rightLabel.text = viewModel.value
         leftLabel.text = viewModel.title
     }
+
+    func configure(title: String, attributedValue: NSAttributedString) {
+        leftLabel.text = title
+        rightLabel.attributedText = attributedValue
+    }
 }
 
 private extension InfoCell {
     func makeConstraints() {
-        contentView.addSubview(container)
-        container.addSubview(rightLabel)
-        container.addSubview(leftLabel)
+        contentView.addSubview(rightLabel)
+        contentView.addSubview(leftLabel)
         NSLayoutConstraint.activate([
-            container.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            container.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            container.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            container.topAnchor.constraint(equalTo: contentView.topAnchor),
-
-            leftLabel.topAnchor.constraint(equalTo: container.topAnchor),
-            leftLabel.bottomAnchor.constraint(equalTo: container.bottomAnchor),
+            leftLabel.topAnchor.constraint(equalTo: self.topAnchor),
+            leftLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             leftLabel.trailingAnchor.constraint(equalTo: rightLabel.leadingAnchor),
-            leftLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 5),
+            leftLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5),
 
-            rightLabel.topAnchor.constraint(equalTo: container.topAnchor),
-            rightLabel.bottomAnchor.constraint(equalTo: container.bottomAnchor),
+            rightLabel.topAnchor.constraint(equalTo: self.topAnchor),
+            rightLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             rightLabel.leadingAnchor.constraint(equalTo: leftLabel.trailingAnchor),
-            rightLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -10)
+            rightLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10)
         ])
     }
 }

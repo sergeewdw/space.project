@@ -6,8 +6,17 @@ final class SettingsCell: UITableViewCell {
 
     private lazy var unitsSelector: UISegmentedControl = {
         let control = UISegmentedControl()
-        control.backgroundColor = .systemGray4
+        control.backgroundColor = UIColor(white: 1, alpha: 0.005)
         control.selectedSegmentTintColor = .white
+        let normalAttrs: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.systemGray2   // серый для невыбранных
+        ]
+
+        let selectedAttrs: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.black         // белый для выбранного
+        ]
+        control.setTitleTextAttributes(normalAttrs, for: .normal)
+        control.setTitleTextAttributes(selectedAttrs, for: .selected)
         control.translatesAutoresizingMaskIntoConstraints = false
         control.addTarget(self, action: #selector(segmentChanged), for: .valueChanged)
         return control
@@ -17,7 +26,7 @@ final class SettingsCell: UITableViewCell {
         let label = UILabel()
         label.textColor = .white
         label.backgroundColor = .black
-        label.font = .systemFont(ofSize: 13)
+        label.font = .systemFont(ofSize: 15)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -56,8 +65,8 @@ private extension SettingsCell {
 
             unitsSelector.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             unitsSelector.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            unitsSelector.widthAnchor.constraint(equalToConstant: 100),
-            unitsSelector.heightAnchor.constraint(equalToConstant: 30)
+            unitsSelector.widthAnchor.constraint(equalToConstant: 110),
+            unitsSelector.heightAnchor.constraint(equalToConstant: 35)
         ])
     }
 

@@ -4,7 +4,7 @@ enum ItemType: Hashable {
     case image
     case characteristic(SettingsType)
     case info(CellName)
-    case stageInfo(isFirst: Bool, CellStageName)
+    case stageInfo(stage: Stage, CellStageName)
     case button
 }
 
@@ -15,4 +15,9 @@ enum Section: CaseIterable, Hashable {
     case infoFirstStage
     case infoSecondStage
     case button
+}
+
+enum Stage: Int, Hashable {
+    case first = 1
+    case second
 }

@@ -9,6 +9,8 @@ final class SettingsViewController: UIViewController {
         tableView.register(SettingsCell.self, forCellReuseIdentifier: SettingsCell.identifier)
         tableView.backgroundColor = .black
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.rowHeight = 55
+        tableView.separatorStyle = .none
         tableView.dataSource = self
         tableView.delegate = self
         return tableView
@@ -90,7 +92,7 @@ private extension SettingsViewController {
 
     func makeConstraints() {
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -119,6 +121,6 @@ private extension SettingsViewController {
 
     @objc
     func closeButtonTapped() {
-        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
 }

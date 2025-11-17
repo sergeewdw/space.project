@@ -1,10 +1,8 @@
 import UIKit
 
 final class LaunchesViewController: UIViewController {
-    private var viewModels: [LaunchCellVIewModels] = []
     private let networkService = NetworkService()
-    private let rocketName: String
-    private let rocketId: String
+    private var launchesViewModel: LaunchesViewModel
 
     private lazy var collectionView: UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: setupCompositionalLayout())
@@ -32,9 +30,8 @@ final class LaunchesViewController: UIViewController {
         return label
     }()
 
-    init(rocket: RocketInfo) {
-        self.rocketName = rocket.name
-        self.rocketId = rocket.id
+    init(launches: LaunchesViewModel) {
+        self.launchesViewModel = launches
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -54,14 +51,14 @@ final class LaunchesViewController: UIViewController {
 
 extension LaunchesViewController: UICollectionViewDataSource {
     func collectionView(_: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        viewModels.count
+        launchesViewModel.launches.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LaunchesCell.identifier, for: indexPath) as? LaunchesCell else {
             return UICollectionViewCell()
         }
-        cell.configure(with: viewModels[indexPath.row])
+        cell.configure(with: launchesViewModel.launches[indexPath.row])
         return cell
     }
 }
@@ -73,12 +70,12 @@ private extension LaunchesViewController {
         view.addSubview(collectionView)
         collectionView.addSubview(activityIndicator)
         collectionView.addSubview(placeholderLabel)
-        navigationItem.title = rocketName
+        navigationItem.title = launchesViewModel.rocketName
     }
 
     func getLaunches() {
         self.activityIndicator.startAnimating()
-        networkService.getLaunches(by: rocketId) {  [weak self] result in
+        networkService.getLaunches(by: launchesViewModel.rocketId) {  [weak self] result in
             DispatchQueue.main.async {
                 self?.activityIndicator.stopAnimating()
                 switch result {
@@ -98,7 +95,7 @@ private extension LaunchesViewController {
     func displayView(_ state: State) {
         switch state {
         case .launches(let items):
-            self.viewModels = items.docs.map { LaunchCellVIewModels(from: $0) }
+            self.launchesViewModel.launches = items.docs.map { LaunchCellViewModels(from: $0) }
             self.collectionView.reloadData()
         case .empty:
             displayLabel(text: "No launches have been made yet.")

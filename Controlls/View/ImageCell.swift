@@ -3,7 +3,7 @@ import UIKit
 
 final class ImageCell: UICollectionViewCell {
     static var identifier = "ImageCellKey"
-    var onSettingsTap: (() -> Void)?
+    weak var delegate: RocketScreenDelegate?
     private let rocketView: UIView = {
         let view = UIView(frame: .zero)
         view.backgroundColor = .black
@@ -53,6 +53,11 @@ final class ImageCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        rocketImageView.image = nil
+    }
+
     func configure(_ rocket: RocketInfo) {
         nameRocketLabel.text = rocket.name
         if let url = URL(string: rocket.flickrImages?.randomElement() ?? "") {
@@ -90,6 +95,6 @@ private extension ImageCell {
 
     @objc
     func settingsTapped() {
-        onSettingsTap?()
+        delegate?.didTapSettings()
     }
 }
